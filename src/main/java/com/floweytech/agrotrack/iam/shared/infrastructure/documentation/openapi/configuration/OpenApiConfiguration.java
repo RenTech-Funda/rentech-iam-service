@@ -47,8 +47,10 @@ public class OpenApiConfiguration {
 
         openApi.addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName))
-                .servers(List.of(new Server().url("https://agrotrack-web-service.up.railway.app")))
-                .components(new Components()
+                .servers(List.of(
+                        new Server().url("https://rentech-iam-service.onrender.com").description("Production"),
+                        new Server().url("http://localhost:8080").description("Local")
+                ))                .components(new Components()
                         .addSecuritySchemes(securitySchemeName,
                                 new SecurityScheme()
                                         .name(securitySchemeName)
