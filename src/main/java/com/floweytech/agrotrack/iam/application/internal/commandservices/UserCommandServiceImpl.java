@@ -10,6 +10,7 @@ import com.floweytech.agrotrack.iam.domain.model.events.UserRegisteredEvent;
 import com.floweytech.agrotrack.iam.domain.services.UserCommandService;
 import com.floweytech.agrotrack.iam.infrastructure.persistence.jpa.repositories.UserRepository;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -19,16 +20,16 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
     private final HashingService hashingService;
     private final TokenService tokenService;
-    private final ApplicationEventPublisher eventPublisher;
+    private final RabbitTemplate rabbitTemplate;
 
     private UserCommandServiceImpl(UserRepository userRepository,
                                    HashingService hashingService,
                                    TokenService tokenService,
-                                   ApplicationEventPublisher eventPublisher){
+                                   RabbitTemplate rabbitTemplate){
         this.userRepository = userRepository;
         this.hashingService = hashingService;
         this.tokenService = tokenService;
-        this.eventPublisher = eventPublisher;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -75,7 +76,9 @@ public class UserCommandServiceImpl implements UserCommandService {
                 command.lastName(),
                 command.photoUrl()
         );
-        eventPublisher.publishEvent(event);
+        
+        // Parámetros: (Nombre_del_Exchange, Routing_Key, Evento_a_enviar)
+        rabbitTemplate.convertAndSend("agrotrack.exchange", "user.registered", event);
 
         return Optional.of(savedUser);
     }
