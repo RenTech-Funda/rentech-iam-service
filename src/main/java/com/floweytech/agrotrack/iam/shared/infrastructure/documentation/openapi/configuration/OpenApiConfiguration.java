@@ -48,7 +48,7 @@ public class OpenApiConfiguration {
         openApi.addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName))
                 .servers(List.of(
-                        new Server().url("https://rentech-iam-service.onrender.com").description("Production"),
+                        new Server().url("agrotrack-iam-service-egazc5hqgxgnc2df.southeastasia-01.azurewebsites.net").description("Production"),
                         new Server().url("http://localhost:8080").description("Local")
                 ))                .components(new Components()
                         .addSecuritySchemes(securitySchemeName,
