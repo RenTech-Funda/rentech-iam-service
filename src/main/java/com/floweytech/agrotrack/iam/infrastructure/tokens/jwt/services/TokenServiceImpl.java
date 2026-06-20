@@ -45,7 +45,7 @@ public class TokenServiceImpl implements BearerTokenService {
                 .claim("userId", userId)
                 .issuedAt(issuedAt)
                 .expiration(expiration)
-                .signWith(key)
+                .signWith(key, Jwts.SIG.HS256)
                 .compact();
     }
 
