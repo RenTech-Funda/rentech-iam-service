@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'target/*.jar'
+          path: 'target/iam-service-0.0.1-SNAPSHOT.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -56,4 +56,4 @@ jobs:
         with:
           app-name: 'agrotrack-iam-service'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'iam-service-0.0.1-SNAPSHOT.jar'
