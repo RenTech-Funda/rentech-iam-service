@@ -120,7 +120,8 @@ public class WebSecurityConfiguration {
                 "http://localhost:5173",
                 "https://agrotrack-web-service.up.railway.app",
                 "https://agrotrack-web-app.netlify.app",
-                "https://rentech-iam-service.onrender.com"
+                "https://rentech-iam-service.onrender.com",
+                "https://agrotrack-frontend--0000002.proudmushroom-7498849c.eastus.azurecontainerapps.io"
 
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
